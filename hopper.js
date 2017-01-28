@@ -4,6 +4,8 @@ var dom = require('xmldom').DOMParser;
 var fs = require('fs');
 var nodemailer = require('nodemailer');
 
+console.log(new Date().toISOString());
+
 //configure email service
 var transporter = nodemailer.createTransport("SMTP",{
     service: 'gmail',
