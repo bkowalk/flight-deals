@@ -39,10 +39,12 @@ function storeNewBestFlight(airportCode,destinationName,price){
 }
 
 function fireNotification(airportCode,destinationName,price){
+    var subjectString = "Alert: $" + price + " to " + destinationName;
+    if (isNew){ subjectString = "New City: $" + price + " to " + destinationName; }
     transporter.sendMail({
        from: fromString,
        to: toString,
-       subject: "Alert: $" + price + " to " + destinationName,
+       subject: subjectString,
        text: "http://www.hopper.com/flights/feed?departure_day=&departure_flex=3%3A3&destination=region%2F26m5%2Cregion%2F25Cs%2Cregion%2F20oH%2Cregion%2F2CIv%2Cregion%2F1uw0&origin=airport%2FSLC&return_day=&return_flex=3%3A3&deal_level=10&sort_by=recent&max_price=1250&stay=8-20&departure_month="
     }, function(error, response){
         if(error){
@@ -66,13 +68,13 @@ function processFlightData(airportCode,destinationName,price){
             if (price < storedPrice){
                 console.log ("New best for " + airportCode + "! Old best: " + storedPrice + ". New price: " + price);
                 storeNewBestFlight(airportCode, destinationName, price);
-                fireNotification(airportCode, destinationName, price);
+                fireNotification(airportCode, destinationName, price, false);
             }
         } else{
             //write out file.  No notifications for a city only seen once.
             console.log(airportCode + " is new.");
             storeNewBestFlight(airportCode,destinationName,price);
-            //fireNotification(airportCode, destinationName, price);
+            //fireNotification(airportCode, destinationName, price, true);
         }
     });
 }
