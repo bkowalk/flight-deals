@@ -38,7 +38,7 @@ function storeNewBestFlight(airportCode,destinationName,price){
         });
 }
 
-function fireNotification(airportCode,destinationName,price){
+function fireNotification(airportCode,destinationName,price,isNew){
     var subjectString = "Alert: $" + price + " to " + destinationName;
     if (isNew){ subjectString = "New City: $" + price + " to " + destinationName; }
     transporter.sendMail({
