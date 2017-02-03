@@ -18,7 +18,7 @@ var transporter = nodemailer.createTransport("SMTP",{
 //other config
 var toString = "my@email.com";
 var fromString = "my@email.com";
-var dataStoreDir = "/tmp/hopper/";
+var dataStoreDir = "/Users/bkowalk/Library/Hopper/store/";
 var options = {
     url:'http://www.hopper.com/flights/feed?departure_day=&departure_flex=3%3A3&destination=region%2F26m5%2Cregion%2F25Cs%2Cregion%2F20oH%2Cregion%2F2CIv%2Cregion%2F1uw0&origin=airport%2FSLC&return_day=&return_flex=3%3A3&deal_level=10&sort_by=recent&max_price=1250&stay=8-20&departure_month=',
     headers:{
@@ -38,7 +38,7 @@ function storeNewBestFlight(airportCode,destinationName,price){
         });
 }
 
-function fireNotification(airportCode,destinationName,price){
+function fireNotification(airportCode,destinationName,price,isNew){
     var subjectString = "Alert: $" + price + " to " + destinationName;
     if (isNew){ subjectString = "New City: $" + price + " to " + destinationName; }
     transporter.sendMail({
