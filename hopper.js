@@ -65,7 +65,9 @@ function processFlightData(airportCode,destinationName,price){
             //check price.  If this price is higher, do nothing.  If lower, store and send notification.
             var storedPriceFile = fs.readFileSync(dataStoreDir + airportCode, 'utf8');
             var storedPrice = storedPriceFile.split("\n")[0];
-            if (parseInt(price,10) < parseInt(storedPrice,10)){
+            if (storedPrice == ""){
+                console.log("Error - stored price for " + airportCode + " invalid");
+            } else if (parseInt(price,10) < parseInt(storedPrice,10)){
                 console.log ("New best for " + airportCode + "! Old best: " + storedPrice + ". New price: " + price);
                 storeNewBestFlight(airportCode, destinationName, price);
                 fireNotification(airportCode, destinationName, price, false);
