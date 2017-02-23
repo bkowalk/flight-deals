@@ -74,7 +74,7 @@ function processFlightData(airportCode,destinationName,price){
             } else if (parseInt(price,10) < parseInt(storedPrice,10)){
                 console.log ("New best for " + airportCode + "! Old best: " + storedPrice + ". New price: " + price);
                 storeNewBestFlight(airportCode, destinationName, price);
-                if (price < storedPrice * .85){ //only fire for big deal drops (15% off of more)!
+                if (price < storedPrice * .90){ //only fire for big deal drops (10% off of more)!
                     fireNotification(airportCode, destinationName, price, storedPrice, false);
                 }
             }
